@@ -160,57 +160,140 @@ RULES = [
     # ─────────────────────────────────────────────────────────────
     {
         "categoria": "📰 Trading en Noticias",
-        "regla": "PRO 8%/10%: ventana restringida de ±2 min (4 min total)",
+        "regla": "PRO 8%/10%: ventana prohibida ±2 min — Soft Breach",
         "detalle": (
-            "Prohibido abrir O cerrar trades en instrumentos afectados dentro de 2 min antes "
-            "y 2 min después de noticias de alto impacto. "
-            "Un Take Profit o Stop Loss activado por el sistema dentro de esa ventana también es violación. "
-            "Discursos y conferencias: la ventana cubre toda su duración + 2 min antes de empezar y 2 min después de terminar."
+            "Prohibido ABRIR o CERRAR (incluyendo TP, SL y pending orders) en el instrumento afectado "
+            "dentro de 2 min antes y 2 min después del evento (ventana total 4 min). "
+            "Si un Take Profit o Stop Gain se activa automáticamente dentro de la ventana = violación. "
+            "SÍ puedes holdear un trade que fue abierto MÁS de 2 min antes del evento. "
+            "Discursos/conferencias: la ventana cubre TODA su duración + 2 min antes de que empiece + 2 min después de que termine."
         ),
-        "consecuencia": "Soft Breach: ganancias de ese trade no elegibles para payout. No cierra la cuenta.",
+        "consecuencia": "Soft Breach: ganancias de ese trade NO elegibles para payout. La cuenta NO se cierra.",
         "severidad": "CRÍTICO",
         "fuente": "BOTH",
         "referencia_contrato": "Schedule 3 — News Trading Pro 8% y 10%",
-        "referencia_web": "help.alphacapitalgroup.uk — Can I Trade News (Pro/One/Three)",
+        "referencia_web": "help.alphacapitalgroup.uk/en/articles/9293522-can-i-trade-news-pro-one-three-plans",
     },
     {
         "categoria": "📰 Trading en Noticias",
-        "regla": "PRO 6%: ventana restringida de ±5 min (10 min total)",
+        "regla": "PRO 6% / Alpha One / Alpha Three: ventana prohibida ±5 min — Soft Breach",
         "detalle": (
-            "Prohibido abrir O cerrar trades en instrumentos afectados dentro de 5 min antes "
-            "y 5 min después de noticias de alto impacto. Ventana más amplia que el PRO 8/10. "
-            "Mantener trades abiertos que fueron iniciados ANTES de la ventana: SÍ está permitido."
+            "Prohibido ABRIR o CERRAR (incluyendo TP, SL y pending orders) en el instrumento afectado "
+            "dentro de 5 min antes y 5 min después del evento (ventana total 10 min). "
+            "Si un Take Profit o Stop Gain se activa automáticamente dentro de la ventana = violación. "
+            "SÍ puedes holdear un trade que fue abierto MÁS de 5 min antes del evento. "
+            "Discursos/conferencias: la ventana cubre TODA su duración + 5 min antes de que empiece + 5 min después de que termine."
         ),
-        "consecuencia": "Soft Breach: ganancias de ese trade no elegibles para payout.",
+        "consecuencia": "Soft Breach: ganancias de ese trade NO elegibles para payout. La cuenta NO se cierra.",
         "severidad": "CRÍTICO",
         "fuente": "BOTH",
-        "referencia_contrato": "Schedule 3 — News Trading Pro 6%",
-        "referencia_web": "help.alphacapitalgroup.uk — Can I Trade News (Pro/One/Three)",
+        "referencia_contrato": "Schedule 3 — News Trading Pro 6%, Alpha One, Alpha Three",
+        "referencia_web": "help.alphacapitalgroup.uk/en/articles/9293522-can-i-trade-news-pro-one-three-plans",
     },
     {
         "categoria": "📰 Trading en Noticias",
-        "regla": "Instrumentos afectados: TODOS por USD CPI, Fed Funds Rate + conf., NFP",
+        "regla": "Alpha Swing: trade abierto en ventana de 4 min debe durar más de 2 min",
         "detalle": (
-            "Para TODOS los instrumentos: USD CPI/Inflation Rate, Federal Funds Rate + Statements + Press Conference, "
-            "Non-Farm Employment Change. "
-            "Para XAUUSD/XAGUSD: aplican también todos los high-impact news de USD, AUD, CAD, EUR, GBP, "
-            "Interest Rate Decisions, CPI, GDP, PCE, PMI, Unemployment de TODAS las monedas."
+            "En Swing el trading durante noticias está PERMITIDO, pero con condición: "
+            "si un trade se INICIA dentro de los 2 min antes o 2 min después de una noticia (ventana 4 min), "
+            "su duración debe ser MAYOR a 2 minutos para que sea válido. "
+            "Ejemplo: trade abierto a 14:29 y cerrado a 14:30 durante una noticia a las 14:30 = inválido. "
+            "Las cuentas Swing también están sujetas a las reglas de gambling."
         ),
-        "consecuencia": "Soft Breach por operar en ventana prohibida. Ganancias anuladas para ese trade.",
+        "consecuencia": "Trade inválido: ganancias anuladas si fue abierto en la ventana y cerrado antes de 2 min.",
+        "severidad": "MODERADO",
+        "fuente": "BOTH",
+        "referencia_contrato": "Schedule 3 — News Trading Alpha Swing",
+        "referencia_web": "help.alphacapitalgroup.uk/en/articles/9789907-alpha-swing",
+    },
+    {
+        "categoria": "📰 Trading en Noticias",
+        "regla": "Instrumentos afectados — TODOS: 3 eventos USD universales sin excepción",
+        "detalle": (
+            "Para ABSOLUTAMENTE TODOS los instrumentos (FX, metales, índices, oil) sin excepción, "
+            "los siguientes 3 eventos activan la restricción:<br>"
+            "• <strong>USD CPI / Inflation Rate</strong><br>"
+            "• <strong>Federal Funds Rate + Statements + Press Conference</strong><br>"
+            "• <strong>Non-Farm Employment Change (NFP)</strong><br>"
+            "Estos 3 son los únicos que aplican para instrumentos no listados en el resto de la tabla."
+        ),
+        "consecuencia": "Soft Breach si se opera en la ventana prohibida en CUALQUIER instrumento durante estos 3 eventos.",
         "severidad": "CRÍTICO",
         "fuente": "BOTH",
         "referencia_contrato": "Schedule 3 — Tabla de instrumentos y noticias",
-        "referencia_web": "help.alphacapitalgroup.uk — Can I Trade News",
+        "referencia_web": "help.alphacapitalgroup.uk/en/articles/9293522-can-i-trade-news-pro-one-three-plans",
     },
     {
         "categoria": "📰 Trading en Noticias",
-        "regla": "Calendario recomendado: Myfxbook y Forex Factory (al menos en uno debe ser 'high impact')",
+        "regla": "Instrumentos afectados — XAUUSD / XAGUSD: cobertura máxima de noticias",
         "detalle": (
-            "Lo que importa es si la noticia está listada en los calendarios de referencia Y es considerada "
-            "high-impact en al menos uno de ellos. Aunque un calendario la clasifique como 'naranja' (medium), "
-            "si el otro la clasifica como 'rojo' (high), aplica la restricción."
+            "Para XAUUSD.pro/.raw y XAGUSD.pro/.raw aplica CUALQUIER noticia high-impact de:<br>"
+            "• Todos los <strong>USD</strong> high-impact news/speeches<br>"
+            "• Todos los <strong>AUD</strong> high-impact news/speeches<br>"
+            "• Todos los <strong>CAD</strong> high-impact news/speeches<br>"
+            "• Todos los <strong>EUR</strong> high-impact speeches<br>"
+            "• Todos los <strong>GBP</strong> high-impact speeches<br>"
+            "• TODAS las divisas: Interest Rate Decision + Press Conference<br>"
+            "• TODAS las divisas: CPI/Inflation Rate · GDP Growth Rate · PCE · PMI<br>"
+            "• TODAS las divisas: Unemployment Change/Rate · Employment Change/Rate<br>"
+            "Es el instrumento con la lista de restricciones de noticias más amplia de la plataforma."
         ),
-        "consecuencia": "Ignorar este criterio puede resultar en soft breach aunque el evento parezca menor.",
+        "consecuencia": "Soft Breach. Prácticamente cualquier noticia high-impact de las principales divisas activa la restricción en oro/plata.",
+        "severidad": "CRÍTICO",
+        "fuente": "BOTH",
+        "referencia_contrato": "Schedule 3 — Tabla XAUUSD/XAGUSD",
+        "referencia_web": "help.alphacapitalgroup.uk/en/articles/9293522-can-i-trade-news-pro-one-three-plans",
+    },
+    {
+        "categoria": "📰 Trading en Noticias",
+        "regla": "Instrumentos afectados — USD Forex / Commodities / US Indices (US30, US100, US500)",
+        "detalle": (
+            "Además de los 3 universales, para pares USD e índices americanos aplican:<br>"
+            "Employment Change/Rate · Unemployment Change/Rate · Non-Farm Payrolls · PMI · ISM · "
+            "CPI/Inflation Rate · PPI · GDP · Balance of Trade · Jobless Claims · "
+            "Consumer Confidence/Sentiment · JOLTs Job Openings · Average Hourly Earnings · "
+            "10Y Note Auction · 30Y Bond Auction · Existing &amp; New Home Sales · Durable Goods Orders · "
+            "Speeches · Empire State Manufacturing Index · Retail Sales · Core PCE"
+        ),
+        "consecuencia": "Soft Breach si se opera en la ventana durante cualquiera de estos eventos en pares USD o índices americanos.",
+        "severidad": "CRÍTICO",
+        "fuente": "BOTH",
+        "referencia_contrato": "Schedule 3 — Tabla USD (Forex, Commodities & US Indices)",
+        "referencia_web": "help.alphacapitalgroup.uk/en/articles/9293522-can-i-trade-news-pro-one-three-plans",
+    },
+    {
+        "categoria": "📰 Trading en Noticias",
+        "regla": "Instrumentos afectados — EUR, GBP, CAD, AUD, NZD, CHF, JPY y Oil por divisa",
+        "detalle": (
+            "<strong>EUR</strong> (Forex, EU Indices): PMI · CPI · GDP · Employment/Unemployment · Retail Sales · "
+            "Balance of Trade · ECB Rates + conf. · Deposit Facility Rate · Sentiment · Business Climate · Consumer Confidence · Speeches · ALL GBP HIGH-IMPACT<br>"
+            "<strong>GBP</strong> (Forex): PMI · CPI · GDP · House Prices · Mortgage Approvals · Retail Sales · "
+            "BoE Rates + conf. · Trade Balances · Claimant Count Change · Speeches · ALL EUR HIGH-IMPACT<br>"
+            "<strong>CAD</strong> (Forex, Oil): BoC Rates + conf. · PMI · CPI · GDP · Employment/Unemployment · "
+            "Retail Sales · Housing Starts · Balance of Trade · Speeches<br>"
+            "<strong>AUD</strong> (Forex): RBA Rate + conf. · Employment/Unemployment · CPI · GDP · Retail Sales · Speeches<br>"
+            "<strong>NZD</strong> (Forex): RBNZ Rate + conf. · Employment/Unemployment · CPI · GDP · Speeches<br>"
+            "<strong>CHF</strong> (Forex): CPI · GDP · SNB Policy Rate + conf. · Speeches<br>"
+            "<strong>JPY</strong> (Forex, Asian Indices): BoJ Rates + conf. · PMI · CPI · GDP · Industrial Production · Merchandise Trade Balance · Speeches<br>"
+            "<strong>OIL</strong> (USOIL/UKOIL): All CAD High Impact News + Crude Oil Inventories"
+        ),
+        "consecuencia": "Soft Breach si se opera en la ventana durante los eventos listados para cada divisa/instrumento.",
+        "severidad": "CRÍTICO",
+        "fuente": "BOTH",
+        "referencia_contrato": "Schedule 3 — Tabla EUR/GBP/CAD/AUD/NZD/CHF/JPY/Oil",
+        "referencia_web": "help.alphacapitalgroup.uk/en/articles/9293522-can-i-trade-news-pro-one-three-plans",
+    },
+    {
+        "categoria": "📰 Trading en Noticias",
+        "regla": "Calendario de referencia: Myfxbook + Forex Factory — basta 'rojo' en uno de los dos",
+        "detalle": (
+            "Para determinar si aplica la restricción, consulta Myfxbook Forex Economic Calendar "
+            "y Forex Factory Calendar. Lo que importa: que el evento esté listado en la tabla Y que "
+            "al menos UNO de los dos calendarios lo clasifique como high-impact (rojo). "
+            "Si un calendario lo marca 'naranja' (medium) y el otro 'rojo' (high), aplica la restricción. "
+            "Discursos y conferencias: la ventana cubre toda su duración (no solo el momento de inicio)."
+        ),
+        "consecuencia": "Ignorar este criterio puede resultar en soft breach aunque el evento parezca menor en un calendario.",
         "severidad": "MODERADO",
         "fuente": "WEB",
         "referencia_contrato": None,
