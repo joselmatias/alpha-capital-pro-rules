@@ -498,13 +498,17 @@ RULES = [
     # ─────────────────────────────────────────────────────────────
     {
         "categoria": "🚫 Estrategias Prohibidas",
-        "regla": "Prohibición absoluta: arbitrage, latency, HFT, reverse trading, order book spamming",
+        "regla": "Arbitrage, latency y front-running: explotación de precios irreales",
         "detalle": (
-            "Prohibido: explotar precios no realistas (arbitraje, latency, front-running), "
-            "High Frequency Trading, reverse trading/group hedging, spamming del order book "
-            "(múltiples órdenes pequeñas en lugar de una grande), group trading/signal following coordinado."
+            "Está prohibido operar sobre cualquier precio u oportunidad de trading irreal. El contrato lista explícitamente:<br>"
+            "• <strong>Arbitrage:</strong> explotar diferencias de precio entre plataformas, brokers o feeds<br>"
+            "• <strong>Latency trading:</strong> aprovecharse del delay temporal entre el feed real y el feed de la plataforma<br>"
+            "• <strong>Front-running:</strong> anticiparse artificialmente al movimiento del price feed<br>"
+            "• <strong>Exploiting mispricing:</strong> operar sobre precios erróneos o anómalos del sistema<br>"
+            "Alpha revisa el historial completo de entradas/salidas en cada solicitud de payout. "
+            "Patrones de entradas a precios imposibles en condiciones normales de mercado activan la revisión."
         ),
-        "consecuencia": "Terminación inmediata de la cuenta + posible ban permanente de todos los servicios de Alpha. Ganancias anuladas.",
+        "consecuencia": "Terminación inmediata del contrato + ban potencial de todos los servicios de Alpha. Ganancias del período anuladas. Evaluaciones aprobadas sujetas a revisión retroactiva.",
         "severidad": "CRÍTICO",
         "fuente": "BOTH",
         "referencia_contrato": "Schedule 3 — Prohibited Trading Strategies",
@@ -512,29 +516,128 @@ RULES = [
     },
     {
         "categoria": "🚫 Estrategias Prohibidas",
-        "regla": "Gambling / All-or-Nothing: política estricta",
+        "regla": "High Frequency Trading (HFT): prohibido en todas sus formas",
         "detalle": (
-            "Prohibido: estrategias all-or-nothing, cambio drástico de lot size vs. promedio de la cuenta, "
-            "duración de trades significativamente distinta al promedio histórico, "
-            "trades abiertos justo antes de noticias y cerrados justo después de la ventana restringida. "
-            "Ejemplo permitido: arriesgar 2% para ganar 8% (no es all-or-nothing). "
-            "Ejemplo prohibido: arriesgar 4% para ganar 8%."
+            "El HFT está prohibido sin excepción. Alpha lo evalúa comparando la frecuencia de trades "
+            "contra el historial COMPLETO de la cuenta — no solo la sesión actual. "
+            "Un día de muchos trades no es HFT; un patrón sistemático de trades ultra-cortos a lo largo del tiempo sí lo es. "
+            "El scalping extremo recurrente (alta frecuencia + duraciones muy cortas como patrón consistente) "
+            "cae en zona HFT y puede derivar en Risk Management Group. "
+            "Si tienes dudas sobre si tu estrategia califica como HFT, Alpha ofrece revisión previa "
+            "mediante cuenta de prueba gratuita antes de comprar una evaluación."
         ),
-        "consecuencia": "Eliminación de ganancias + posible terminación del contrato y cierre de cuenta.",
+        "consecuencia": "HFT confirmado: terminación + posible ban permanente. Scalping extremo recurrente: Risk Management Group (leverage y lotes reducidos).",
         "severidad": "CRÍTICO",
         "fuente": "BOTH",
-        "referencia_contrato": "Cláusula 28.3.4 y Schedule 3 — Gambling Policy",
+        "referencia_contrato": "Schedule 3 — Prohibited Trading Strategies + Cláusula 28.3.4(b)",
+        "referencia_web": "help.alphacapitalgroup.uk — Prohibited Strategies",
+    },
+    {
+        "categoria": "🚫 Estrategias Prohibidas",
+        "regla": "Reverse trading y group hedging coordinado entre usuarios de Alpha",
+        "detalle": (
+            "Prohibido el reverse trading y el group hedging entre múltiples usuarios. "
+            "Esto incluye cualquier coordinación donde distintos traders de Alpha toman posiciones opuestas "
+            "en los mismos instrumentos al mismo tiempo para cubrir riesgo colectivo o manipular resultados. "
+            "Alpha analiza correlaciones entre cuentas para detectar este patrón. "
+            "No confundir con hedging personal dentro de una misma cuenta, que puede estar permitido dependiendo del plan."
+        ),
+        "consecuencia": "Terminación inmediata + posible ban de servicios. Ganancias anuladas en todos los períodos afectados.",
+        "severidad": "CRÍTICO",
+        "fuente": "CONTRACT",
+        "referencia_contrato": "Schedule 3 — Reverse Trading/Group Hedging",
+        "referencia_web": None,
+    },
+    {
+        "categoria": "🚫 Estrategias Prohibidas",
+        "regla": "Order Book Spamming: múltiples órdenes pequeñas en lugar de una sola",
+        "detalle": (
+            "Prohibido colocar múltiples órdenes pequeñas en lugar de una sola orden equivalente. "
+            "El contrato define esto como crear una impresión engañosa de actividad del mercado.<br>"
+            "<strong>Ejemplo prohibido (literal del contrato):</strong> ingresar 10 órdenes de 0.1 lots "
+            "en un período corto en vez de 1 orden de 1 lot.<br>"
+            "<strong>Por qué está prohibido:</strong><br>"
+            "• Ventaja injusta: en el entorno simulado las consecuencias son menores que en live<br>"
+            "• Sobrecarga del sistema: puede causar delays y afectar a todos los usuarios de la plataforma<br>"
+            "Alpha detecta este patrón en el historial de órdenes colocadas, incluyendo las canceladas, "
+            "no solo en las ejecutadas."
+        ),
+        "consecuencia": "Terminación inmediata del contrato. Todas las evaluaciones aprobadas quedan sujetas a revisión retroactiva. Ganancias anuladas.",
+        "severidad": "CRÍTICO",
+        "fuente": "BOTH",
+        "referencia_contrato": "Schedule 3 — Spamming Order Book",
+        "referencia_web": "help.alphacapitalgroup.uk — Prohibited Strategies",
+    },
+    {
+        "categoria": "🚫 Estrategias Prohibidas",
+        "regla": "Group trading y signal following: coordinación con otros usuarios de Alpha",
+        "detalle": (
+            "Prohibida cualquier forma de trading coordinado con otros usuarios de Alpha Capital:<br>"
+            "• Seguir señales de terceros de forma sincronizada con otros Analysts/Qualified Analysts de Alpha<br>"
+            "• Participar en grupos (Telegram, Discord, etc.) donde múltiples usuarios de Alpha toman las mismas entradas/salidas al mismo tiempo<br>"
+            "• Servicios de account management: cualquier persona que opere la cuenta distinta al titular del contrato<br>"
+            "• Copiar trades de otros Analysts de Alpha (aunque sean señales públicas)<br>"
+            "El contrato exige que TODAS las cuentas sean operadas exclusivamente por el trader "
+            "cuyo nombre y firma aparecen en el contrato firmado."
+        ),
+        "consecuencia": "Revisión + terminación instantánea si se confirma. Ganancias anuladas. No avanza a Qualified Analyst en evaluaciones.",
+        "severidad": "CRÍTICO",
+        "fuente": "BOTH",
+        "referencia_contrato": "Schedule 3 — Group Trading/Signal Following",
+        "referencia_web": "help.alphacapitalgroup.uk — Prohibited Strategies",
+    },
+    {
+        "categoria": "🚫 Estrategias Prohibidas",
+        "regla": "Gambling All-or-Nothing: riesgo desproporcionado por trade — el contrato mide el MAX LOSS, no el profit",
+        "detalle": (
+            "Alpha prohíbe estrategias donde el riesgo máximo por trade es desproporcionado respecto al objetivo. "
+            "<strong>Criterio clave:</strong> Alpha evalúa el MÁXIMO DRAWDOWN del trade (peor punto del precio), "
+            "no el resultado final. Un trade que bajó 4% pero cerró en ganancia sigue siendo catalogado como all-or-nothing.<br>"
+            "<strong>PROHIBIDO (literal del contrato):</strong> arriesgar 4% para ganar 8%<br>"
+            "<strong>PERMITIDO (literal del contrato):</strong> arriesgar 2% para ganar 8%<br>"
+            "El umbral orientativo es: max risk ≥ 2% del balance en un trade o secuencia de trades "
+            "cerrados en el mismo momento (criterio (a) del Risk Management Group)."
+        ),
+        "consecuencia": "Eliminación de ganancias del período + posible terminación del contrato y cierre de cuenta. Si es patrón recurrente: Risk Management Group.",
+        "severidad": "CRÍTICO",
+        "fuente": "BOTH",
+        "referencia_contrato": "Cláusula 28.3.4(c) y Schedule 3 — Gambling Policy",
         "referencia_web": "help.alphacapitalgroup.uk — Policy Against Gambling",
     },
     {
         "categoria": "🚫 Estrategias Prohibidas",
-        "regla": "Copy trading solo desde TU PROPIA cuenta externa",
+        "regla": "Gambling por desviación de estilo: cambio de lot size o duración vs. historial de la cuenta",
+        "detalle": (
+            "Alpha compara cada trade contra el historial COMPLETO de la cuenta para detectar desviaciones. "
+            "Tres señales de alerta concretas que menciona el contrato:<br>"
+            "• <strong>Cambio de lot size:</strong> operar un tamaño significativamente mayor o menor al promedio histórico "
+            "sin justificación estratégica se considera gambling<br>"
+            "• <strong>Cambio de duración:</strong> si tu promedio histórico es 2-6h por trade pero un trade dura "
+            "pocos minutos (especialmente alrededor de noticias), se interpreta como especulación pura<br>"
+            "• <strong>News-hunting:</strong> abrir trades justo antes del evento y cerrarlos justo después de "
+            "que pase la ventana restringida (sin intención real de holdear) se considera gambling, "
+            "tanto en cuentas Pro/One/Three como en Swing<br>"
+            "Este análisis aplica durante el assessment Y en la cuenta fondeada al momento del payout."
+        ),
+        "consecuencia": "En assessment: no avanza a Qualified Analyst. En cuenta fondeada: eliminación de ganancias + posible terminación.",
+        "severidad": "CRÍTICO",
+        "fuente": "BOTH",
+        "referencia_contrato": "Schedule 3 — Gambling Policy",
+        "referencia_web": "help.alphacapitalgroup.uk — Policy Against Gambling",
+    },
+    {
+        "categoria": "🚫 Estrategias Prohibidas",
+        "regla": "Copy trading solo desde TU PROPIA cuenta externa — no de terceros",
         "detalle": (
             "El único copy trading permitido es desde tu propia cuenta externa hacia tu Alpha Account. "
-            "Está prohibido copiar trades de otros traders, seguir señales de terceros de forma coordinada "
-            "con otros usuarios de Alpha, o usar servicios de gestión de cuentas por terceros."
+            "El contrato (Cláusula 9.1.5) es explícito: cualquier Analyst encontrado copiando trades "
+            "de otros traders será revisado y, si se confirma, resultará en terminación instantánea. "
+            "Quedan prohibidos:<br>"
+            "• Copiar señales de servicios de señales externos coordinados con otros usuarios de Alpha<br>"
+            "• Usar EAs o bots que repliquen estrategias de terceros<br>"
+            "• Delegar la cuenta a un gestor o account manager externo"
         ),
-        "consecuencia": "Revisión + terminación instantánea si se confirma la violación.",
+        "consecuencia": "Revisión inmediata + terminación instantánea si se confirma. Sin proceso de apelación explícito en el contrato.",
         "severidad": "CRÍTICO",
         "fuente": "CONTRACT",
         "referencia_contrato": "Cláusula 9.1.5 y Schedule 3",
@@ -542,14 +645,37 @@ RULES = [
     },
     {
         "categoria": "🚫 Estrategias Prohibidas",
-        "regla": "Criterios del Risk Management Group",
+        "regla": "Account rolling: pasar y fallar muchas cuentas en poco tiempo",
         "detalle": (
-            "Tu cuenta puede ser movida al Risk Group si: (a) arriesgas ≥2% en un trade o secuencia, "
-            "(b) scalping extremo en relación al historial completo, (c) estilo all-or-nothing, "
-            "(d) uso excesivo de margen, (e) gambling en noticias, (f) account rolling "
-            "(pasar y fallar muchas cuentas en poco tiempo — historial de cuentas previas se considera)."
+            "Alpha lleva un historial de TODAS tus cuentas anteriores (aprobadas y falladas). "
+            "El account rolling se define como: operar a riesgo máximo en cada cuenta para pasar o fallar rápido, "
+            "combinado con un volumen alto de cuentas abiertas y cerradas en poco tiempo. "
+            "Consecuencias posibles:<br>"
+            "• Movimiento al Risk Management Group (leverage y lotes reducidos)<br>"
+            "• <strong>Pausa de 30 días</strong> del servicio completo para prevenir el abuso sistemático<br>"
+            "El historial de cuentas previas se toma en cuenta en cada revisión, incluyendo evaluaciones falladas."
         ),
-        "consecuencia": "Reducción de apalancamiento y lotes. Restricción mínima hasta 2 payouts exitosos.",
+        "consecuencia": "Risk Management Group + posible pausa de 30 días del servicio. El historial negativo se acumula y afecta futuras cuentas.",
+        "severidad": "MODERADO",
+        "fuente": "BOTH",
+        "referencia_contrato": "Cláusula 28.3.4(f)",
+        "referencia_web": "help.alphacapitalgroup.uk — Risk Management Group PRO",
+    },
+    {
+        "categoria": "🚫 Estrategias Prohibidas",
+        "regla": "Criterios completos del Risk Management Group — 6 causas contractuales",
+        "detalle": (
+            "El contrato lista 6 categorías que activan el Risk Management Group (Cláusula 28.3.4):<br>"
+            "• <strong>(a)</strong> Riesgo ≥2% en un trade individual o secuencia de trades cerrados al mismo tiempo<br>"
+            "• <strong>(b)</strong> Scalping extremo: alta frecuencia de trades cortos vs. historial completo<br>"
+            "• <strong>(c)</strong> Estilo all-or-nothing: max risk ≥ 4% para ganar 8% (alpha evalúa el max loss del trade)<br>"
+            "• <strong>(d)</strong> Uso excesivo de margen o max lots de forma reiterada<br>"
+            "• <strong>(e)</strong> Gambling en noticias — tanto durante assessment como soft breach en cuenta fondeada<br>"
+            "• <strong>(f)</strong> Account rolling — historial de cuentas previas se considera<br>"
+            "Tras entrar al Risk Group se requieren <strong>2 payouts exitosos consecutivos</strong> para solicitar revisión "
+            "de regreso al leverage normal. La revisión es DISCRECIONAL del Risk Team (no automática)."
+        ),
+        "consecuencia": "Leverage reducido (Pro/One/Three: FX 1:30, Metales 1:9, Índices 1:10, Oil 1:10 | Swing: FX 1:15, Metales 1:4, Índices 1:5, Oil 1:5). Lotes a la mitad.",
         "severidad": "MODERADO",
         "fuente": "BOTH",
         "referencia_contrato": "Cláusula 28.3.4",
@@ -557,17 +683,20 @@ RULES = [
     },
     {
         "categoria": "🚫 Estrategias Prohibidas",
-        "regla": "Contacto directo con el broker de Alpha: PROHIBIDO",
+        "regla": "Contacto directo con el broker de Alpha: PROHIBIDO bajo cualquier circunstancia",
         "detalle": (
-            "Los Qualified Analysts pueden recibir credenciales y ejecutar trades virtualmente, "
-            "pero tienen PROHIBIDO cualquier contacto directo con el broker o intermediario de Alpha "
-            "sin autorización del Account Owner (Alpha). "
-            "Todas las cuentas y activos dentro de ellas son propiedad de Alpha."
+            "Los Qualified Analysts reciben credenciales y derechos de ejecución virtual, pero operan "
+            "<strong>en nombre del Account Owner (Alpha)</strong>. La Cláusula 9.1.2 prohíbe explícitamente:<br>"
+            "• Cualquier contacto directo con el broker o intermediario de Alpha<br>"
+            "• Instrucciones directas al broker sin autorización previa de Alpha<br>"
+            "• Comunicación con cualquier contraparte de la cadena de ejecución<br>"
+            "Fundamento legal: todas las cuentas y todos los fondos virtuales dentro de ellas son "
+            "propiedad exclusiva de Alpha (Cláusula 9.1.1). El trader solo tiene derechos de ejecución virtual."
         ),
-        "consecuencia": "Terminación INSTANTÁNEA del servicio y cierre de la cuenta. Sin excepción.",
+        "consecuencia": "Terminación INSTANTÁNEA del servicio y cierre de la cuenta. Sin advertencia previa. Sin proceso de apelación.",
         "severidad": "CRÍTICO",
         "fuente": "CONTRACT",
-        "referencia_contrato": "Cláusula 9.1.2",
+        "referencia_contrato": "Cláusula 9.1.1 y 9.1.2",
         "referencia_web": None,
     },
 
